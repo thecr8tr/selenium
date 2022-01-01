@@ -16,9 +16,11 @@
 # under the License.
 import warnings
 from selenium.webdriver.chromium.webdriver import ChromiumDriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.common.options import BaseOptions
 from .options import Options
 from .service import DEFAULT_EXECUTABLE_PATH, Service
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from typing import Optional, Sequence
 
 
 DEFAULT_PORT = 0
@@ -33,10 +35,16 @@ class WebDriver(ChromiumDriver):
     http://chromedriver.storage.googleapis.com/index.html
     """
 
-    def __init__(self, executable_path=DEFAULT_EXECUTABLE_PATH, port=DEFAULT_PORT,
-                 options: Options = None, service_args=None,
-                 desired_capabilities=None, service_log_path=DEFAULT_SERVICE_LOG_PATH,
-                 chrome_options=None, service: Service = None, keep_alive=DEFAULT_KEEP_ALIVE):
+    def __init__(self,
+                 executable_path: str = DEFAULT_EXECUTABLE_PATH,
+                 port: int = DEFAULT_PORT,
+                 options: Optional[Options] = None,
+                 service_args: Optional[Sequence[str]] = None,
+                 desired_capabilities: Optional[dict] = None,
+                 service_log_path: Optional[str] = DEFAULT_SERVICE_LOG_PATH,
+                 chrome_options: Optional[BaseOptions] = None,
+                 service: Optional[Service] = None,
+                 keep_alive: Optional[bool] = DEFAULT_KEEP_ALIVE) -> None:
         """
         Creates a new instance of the chrome driver.
         Starts the service and then creates new instance of chrome driver.
